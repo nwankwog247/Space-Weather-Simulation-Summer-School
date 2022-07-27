@@ -45,17 +45,15 @@ def integrate(f, x0, tspan, h, step):
             ts - time points visited during integration (list)
             xs - trajectory of the system (list of numpy arrays)
     """
-    t, tf = tspan
-    x = x0
-    trajectory = [x0]
-    ts = [t]
-    while t < tf:
-        h_eff = min(h, tf-t)
-        x = step(f,x,t,h_eff)
-        t = min(t+h_eff, tf)
-        trajectory.append(x)
-        ts.append(t)
-    return trajectory, ts
+    s = len(c)
+    ks = [f(x,t)]
+    x_new = x + h*b[0]*ks[0]
+    error = h*b[0]*ks[0]
+    for i in range(s-1):
+        y = x + h*sum(a[i][j]*ks[j] for j in range(i+1))
+        ks.append(f(y, t+h*c[i+1]))
+        x_new += h*b[i+1]*ks[-1]
+    return x_new
 
 def adaptive_explicit_RK_stepper(f,x,t,h,a,b,c,b_control):
     """
@@ -75,7 +73,18 @@ def adaptive_explicit_RK_stepper(f,x,t,h,a,b,c,b_control):
             x_new - estimate of state at time t + h
             error - estimate of the accuracy
     """
-    return ... # please complete this function 
+    t, tf = tspan
+    x = x0
+    trajectory = [x0]
+    ts = [t]
+    while t < tf:
+        h_eff = min(h, tf-t)
+        x = step(f,x,t,h_eff)
+        t = min(t+h_eff, tf)
+        trajectory.append(x)
+        ts.append(t)
+    return trajectory, ts
+    # please complete this function 
                # hint: 
                # It should be a rather simple adaptation of 
                # explicit_RK_stepper
