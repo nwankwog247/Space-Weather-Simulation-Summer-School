@@ -3,6 +3,9 @@
 ##################################
 
 # silly example 
+#powers_of_two = [1, 2, 3, 4]
+
+
 🔥 = - 42
 💧 = 42
 🔥 * 💧
@@ -33,7 +36,7 @@ append!(powers_of_two, [16, 32])
 
 # defining a matrix
 van_der_monde = [1 2 4 8; # first row
-                 1 3 9 27] # second row
+                 1 3 9 27] # second row 
 
 # concatenating 
 # adding rows 
@@ -43,9 +46,12 @@ stacked_van_der_monde = [van_der_monde;
                          van_der_monde]
 
 # adding columns
-van_der_monde_bigger = [van_der_monde van_der_monde]
+van_der_monde_bigger = [van_der_monde; 
+                        van_der_monde]
 
 # indexing starts at 1!
+van_der_monde_horizontal = [van_der_monde van_der_monde]
+van_der_monde_horizontal[2,3]
 van_der_monde[1,3]
 # slicing
 van_der_monde[1:2,3]
@@ -58,18 +64,33 @@ powers_of_two[end-1]
 ##################################
 #### loops
 ##################################
+for i in 1:10
+println(i)
+end
+#the above loop was to print the nimber from 1 to 10
+#the next loop will be to print in an increment of 2
+
+for i in 1:2:10
+    println(i)
+end
+
+#lets print power in the below loop
 for power in powers_of_two 
     println(power)
 end
 
+#lets print the length in the below loop from 1
 for i in 1:length(powers_of_two) # discouraged!
     println(powers_of_two[i])
 end
 
+#in the next loop, we will print each index
 for i in eachindex(powers_of_two)
     println(powers_of_two[i])
 end
 
+#the next is a while loop 
+#Note that you have to run i first, before you can run the while loop
 i = 0
 while i <= 10
     println(i)
@@ -110,6 +131,8 @@ end
 # for simple functions we may prefer the assignment form 
 # to resemble standard math notation more closely
 f(x) = 1/(2π)*exp(-x^2)
+f.([0.2, 2.0, 3.0])
+f.(van_der_monde)
 # evaluation 
 p = f(0.5)
 

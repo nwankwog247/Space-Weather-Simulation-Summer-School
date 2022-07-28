@@ -7,6 +7,7 @@ function cos_approx(x, N)
     #       - N : truncation order of the power series approximation
     # outputs:
     #       - cos_val : approximation of cos(x)
+    #return sum (-1)^N * x^(2*N)/(2*factorial(N))
 end
 
 @btime cos_approx($(π/3),$(10)) 
